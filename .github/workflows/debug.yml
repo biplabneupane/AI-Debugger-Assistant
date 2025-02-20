@@ -1,1 +1,35 @@
- 
+name: AI Debugger Automation
+
+on: [push, pull_request]
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Analyzer
+        run: python src/analyzer.py
+
+      - name: Run AI Debugger
+        run: python src/ai_debugger.py
+
+      - name: Apply Fixes
+        run: python src/auto_fixer.py
+
+      - name: Push Fixes
+        run: |
+          git config --global user.name 'github-bot'
+          git config --global user.email 'github-bot@example.com'
+          git add .
+          git commit -m "Automated AI fixes"
+          git push origin main
