@@ -10,3 +10,18 @@
 [1m.\tests\test_analyzer.py[m[36m:[m1[36m:[m1[36m:[m [1m[31mW391[m blank line at end of file
 [1m.\tests\test_auto_fixer.py[m[36m:[m1[36m:[m1[36m:[m [1m[31mW391[m blank line at end of file
 [1m.\tests\test_github_bot.py[m[36m:[m1[36m:[m1[36m:[m [1m[31mW391[m blank line at end of file
+[1m.\scripts\run_debugger.py[m[36m:[m1[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1m.\src\__init__.py[m[36m:[m1[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1m.\src\ai_debugger.py[m[36m:[m4[36m:[m1[36m:[m [1m[31mE302[m expected 2 blank lines, found 1
+[1m.\src\ai_debugger.py[m[36m:[m39[36m:[m1[36m:[m [1m[31mE305[m expected 2 blank lines after class or function definition, found 1
+[1m.\src\ai_debugger.py[m[36m:[m42[36m:[m1[36m:[m [1m[31mW391[m blank line at end of file
+[1m.\src\analyzer.py[m[36m:[m5[36m:[m1[36m:[m [1m[31mE302[m expected 2 blank lines, found 1
+[1m.\src\analyzer.py[m[36m:[m26[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1m.\src\analyzer.py[m[36m:[m46[36m:[m1[36m:[m [1m[31mE305[m expected 2 blank lines after class or function definition, found 1
+[1m.\src\auto_fixer.py[m[36m:[m3[36m:[m1[36m:[m [1m[31mE302[m expected 2 blank lines, found 1
+[1m.\src\auto_fixer.py[m[36m:[m6[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1m.\src\auto_fixer.py[m[36m:[m18[36m:[m1[36m:[m [1m[31mE305[m expected 2 blank lines after class or function definition, found 1
+[1m.\tests\test_ai_debugger.py[m[36m:[m1[36m:[m1[36m:[m [1m[31mW391[m blank line at end of file
+[1m.\tests\test_analyzer.py[m[36m:[m1[36m:[m1[36m:[m [1m[31mW391[m blank line at end of file
+[1m.\tests\test_auto_fixer.py[m[36m:[m1[36m:[m1[36m:[m [1m[31mW391[m blank line at end of file
+[1m.\tests\test_github_bot.py[m[36m:[m1[36m:[m1[36m:[m [1m[31mW391[m blank line at end of file
