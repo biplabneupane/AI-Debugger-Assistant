@@ -15,7 +15,13 @@ jobs:
           python-version: '3.9'
 
       - name: Install Dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install flake8  # ✅ Install Flake8 early
+
+      - name: Verify Flake8 Installation
+        run: flake8 --version
 
       - name: Run Analyzer
         run: python src/analyzer.py
@@ -33,10 +39,3 @@ jobs:
           git add .
           git commit -m "Automated AI fixes"
           git push origin main
-
-
-      - name: Install Flake8
-        run: pip install flake8
-
-      - name: Verify Flake8 Installation
-        run: flake8 --version
