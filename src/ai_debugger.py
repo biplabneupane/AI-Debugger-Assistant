@@ -2,13 +2,14 @@ import openai
 import os
 import json
 
-# Load OpenAI API Key
-openai.api_key = os.getenv("OPENAI_API_KEY")
-
 class AIDebugger:
     def __init__(self, errors_file="errors.json"):
         self.errors_file = errors_file
-        self.client = openai.OpenAI()  # New OpenAI API client
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise ValueError("❌ OPENAI_API_KEY is missing! Set it in your environment.")
+
+        self.client = openai.OpenAI(api_key=api_key)  # ✅ Pass API key explicitly
 
     def get_fix(self, error):
         """Generate a fix using GPT-3.5-Turbo."""
@@ -21,7 +22,7 @@ class AIDebugger:
         Suggest a corrected version of the code.
         """
 
-        response = self.client.chat.completions.create(  # New API method
+        response = self.client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are a helpful AI that fixes code errors."},

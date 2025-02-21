@@ -26,6 +26,9 @@ jobs:
 
       - name: Run Analyzer
         run: python src/analyzer.py
+        
+      - name: Set OpenAI API Key
+        run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
 
       - name: Run AI Debugger
         run: python src/ai_debugger.py
