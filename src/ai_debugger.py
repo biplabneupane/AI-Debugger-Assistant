@@ -1,5 +1,5 @@
 import os
-import anthropic  # Use Anthropic Claude instead of OpenAI
+import anthropic  # Use Anthropic Claude API
 
 class AIDebugger:
     def __init__(self):
@@ -7,8 +7,8 @@ class AIDebugger:
         if not api_key:
             raise ValueError("❌ Error: ANTHROPIC_API_KEY is missing!")
 
-        # ✅ Correct Anthropic API Client Initialization
-        self.client = anthropic.Client(api_key=api_key)
+        # ✅ Correct initialization of Anthropic's latest SDK
+        self.client = anthropic.Anthropic(api_key=api_key)
 
     def get_fix(self, error):
         prompt = f"""
@@ -18,13 +18,13 @@ class AIDebugger:
         """
 
         response = self.client.messages.create(
-            model="claude-3-opus-20240229",  # Use latest Claude model
+            model="claude-3-opus-20240229",  # Use the latest Claude model
             max_tokens=512,
             temperature=0.5,
             messages=[{"role": "user", "content": prompt}]
         )
 
-        return response.content[0].text  # ✅ Correct way to extract response
+        return response.content[0].text  # ✅ Extract response correctly
 
     def debug_code(self):
         # Simulate a buggy code scenario
