@@ -1,5 +1,5 @@
 import os
-import anthropic  # Use Anthropic Claude API
+from anthropic import Anthropic  # ✅ Corrected import
 
 class AIDebugger:
     def __init__(self):
@@ -7,8 +7,8 @@ class AIDebugger:
         if not api_key:
             raise ValueError("❌ Error: ANTHROPIC_API_KEY is missing!")
 
-        # ✅ Correct initialization of Anthropic's latest SDK
-        self.client = anthropic.Client(api_key=api_key)
+        # ✅ Correct Anthropic client initialization
+        self.client = Anthropic(api_key=api_key)
 
     def get_fix(self, error):
         prompt = f"""
@@ -18,16 +18,15 @@ class AIDebugger:
         """
 
         response = self.client.messages.create(
-            model="claude-3-opus-20240229",  # Use the latest Claude model
+            model="claude-3-opus-20240229",
             max_tokens=512,
             temperature=0.5,
             messages=[{"role": "user", "content": prompt}]
         )
 
-        return response.content[0].text  # ✅ Extract response correctly
+        return response.content[0].text  # ✅ Correct way to extract response
 
     def debug_code(self):
-        # Simulate a buggy code scenario
         error = "ModuleNotFoundError: No module named 'numpy'"
         fix = self.get_fix(error)
         print("Suggested fix:", fix)
