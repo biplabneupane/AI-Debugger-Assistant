@@ -8,7 +8,7 @@ class AIDebugger:
             raise ValueError("❌ Error: ANTHROPIC_API_KEY is missing!")
 
         # ✅ Correct initialization of Anthropic's latest SDK
-        self.client = anthropic.Anthropic(api_key=api_key)
+        self.client = anthropic.Client(api_key=api_key)
 
     def get_fix(self, error):
         prompt = f"""
