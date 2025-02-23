@@ -1,5 +1,5 @@
 import os
-from anthropic import Anthropic  # ✅ Corrected import
+from anthropic import Anthropic  # ✅ Correct import
 
 class AIDebugger:
     def __init__(self):
@@ -24,7 +24,7 @@ class AIDebugger:
             messages=[{"role": "user", "content": prompt}]
         )
 
-        return response.content[0].text  # ✅ Correct way to extract response
+        return response.content  # ✅ Correct way to extract response
 
     def debug_code(self):
         error = "ModuleNotFoundError: No module named 'numpy'"
