@@ -14,7 +14,7 @@ class Analyzer:
 
     def run_flake8(self):
         """Run Flake8 and save results to lint_report.txt."""
-        subprocess.run(["flake8", "--output-file=" + self.lint_file])
+        subprocess.run(["flake8", "--exit-zero", "--output-file", self.lint_file])
 
     def parse_lint_report(self):
         """Parse the Flake8 report and categorize errors."""

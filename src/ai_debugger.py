@@ -8,7 +8,7 @@ class AIDebugger:
             raise ValueError("❌ Error: ANTHROPIC_API_KEY is missing!")
 
         # ✅ Correct Anthropic client initialization
-        self.client = Anthropic(api_key=api_key)
+        self.client = Anthropic(api_key=api_key) if hasattr(Anthropic, "api_key") else Anthropic()
 
     def get_fix(self, error):
         prompt = f"""
@@ -24,7 +24,7 @@ class AIDebugger:
             messages=[{"role": "user", "content": prompt}]
         )
 
-        return response.content  # ✅ Correct way to extract response
+        return response["content"]  # ✅ Correct way to extract response
 
     def debug_code(self):
         error = "ModuleNotFoundError: No module named 'numpy'"
