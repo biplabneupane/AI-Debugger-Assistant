@@ -13,21 +13,12 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: '3.9'
-      
+
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools wheel
           pip install -r requirements.txt
-          pip install flake8 anthropic==0.25.0  # ✅ Use a stable Anthropic version
-
-      - name: Verify Flake8 Installation
-        run: flake8 --version
-
-      - name: Set Anthropic API Key  # ✅ Ensure API key is loaded before execution
-        run: |
-          echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" >> $GITHUB_ENV
-          echo "✅ Anthropic API Key Loaded"
+          pip install flake8 anthropic
 
       - name: Run Analyzer
         run: python src/analyzer.py
@@ -40,10 +31,13 @@ jobs:
       - name: Apply Fixes
         run: python src/auto_fixer.py
 
+      - name: Run Tests
+        run: pytest tests/
+
       - name: Push Fixes
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git add .
-          git diff --quiet && git diff --staged --quiet || git commit -m "Automated AI fixes"
+          git commit -m "Automated AI fixes" || echo "No changes to commit"
           git push origin main || echo "No changes to push"

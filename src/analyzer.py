@@ -3,21 +3,15 @@ import json
 import subprocess
 
 class Analyzer:
-    ERROR_CATEGORIES = {
-        "E999": "Syntax Error",
-        "F821": "Logic Error",
-        "F401": "Stylistic Issue"
-    }
+    ERROR_CATEGORIES = {"E999": "Syntax Error", "F821": "Logic Error", "F401": "Stylistic Issue"}
 
     def __init__(self, lint_file="lint_report.txt"):
         self.lint_file = lint_file
 
     def run_flake8(self):
-        """Run Flake8 and save results to lint_report.txt."""
-        subprocess.run(["flake8", "--exit-zero", "--output-file", self.lint_file])
+        subprocess.run(["flake8", "--output-file=" + self.lint_file])
 
     def parse_lint_report(self):
-        """Parse the Flake8 report and categorize errors."""
         categorized_errors = []
         with open(self.lint_file, "r") as f:
             for line in f:
@@ -25,16 +19,7 @@ class Analyzer:
                 if match:
                     file, line, column, error_code, error_message = match.groups()
                     category = self.ERROR_CATEGORIES.get(error_code, "Other")
-
-                    categorized_errors.append({
-                        "file": file,
-                        "line": int(line),
-                        "column": int(column),
-                        "error_code": error_code,
-                        "error_message": error_message,
-                        "category": category
-                    })
-
+                    categorized_errors.append({"file": file, "line": int(line), "error_code": error_code, "category": category})
         with open("errors.json", "w") as json_file:
             json.dump(categorized_errors, json_file, indent=4)
 
@@ -44,5 +29,4 @@ class Analyzer:
         print("Analysis completed! Check errors.json")
 
 if __name__ == "__main__":
-    analyzer = Analyzer()
-    analyzer.analyze()
+    Analyzer().analyze()

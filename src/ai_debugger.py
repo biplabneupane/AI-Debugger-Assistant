@@ -1,21 +1,21 @@
 import os
-from anthropic import Anthropic  # ✅ Correct import
+from dotenv import load_dotenv
+from anthropic import Anthropic
+
+# ✅ Load .env variables
+load_dotenv()
 
 class AIDebugger:
     def __init__(self):
         api_key = os.getenv("ANTHROPIC_API_KEY")
         if not api_key:
-            raise ValueError("❌ Error: ANTHROPIC_API_KEY is missing!")
+            raise ValueError("❌ Error: ANTHROPIC_API_KEY is missing! (Check .env file)")
 
-        # ✅ Correct Anthropic client initialization
-        self.client = Anthropic(api_key=api_key) if hasattr(Anthropic, "api_key") else Anthropic()
+        # ✅ Correctly initialize the Anthropic client (NO proxies, transport, or limits)
+        self.client = Anthropic(api_key=api_key)  # 🔥 This is the correct way
 
     def get_fix(self, error):
-        prompt = f"""
-        You are an AI that fixes Python errors. Given the following error message, suggest a fix:
-
-        Error: {error}
-        """
+        prompt = f"You are an AI that fixes Python errors. Given the following error message, suggest a fix:\nError: {error}"
 
         response = self.client.messages.create(
             model="claude-3-opus-20240229",
@@ -24,7 +24,7 @@ class AIDebugger:
             messages=[{"role": "user", "content": prompt}]
         )
 
-        return response["content"]  # ✅ Correct way to extract response
+        return response.content[0].text if response.content else "❌ No fix provided."
 
     def debug_code(self):
         error = "ModuleNotFoundError: No module named 'numpy'"

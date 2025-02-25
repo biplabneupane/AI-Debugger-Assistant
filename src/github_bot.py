@@ -1,19 +1,18 @@
-from dotenv import load_dotenv
 import os
-from github import Github
+from dotenv import load_dotenv  # ✅ Load .env file
+from github import Github, Auth
 
-# Load .env variables
+# ✅ Load environment variables from .env
 load_dotenv()
 
-# Get the GitHub token from the .env file
 github_token = os.getenv("GITHUB_TOKEN")
 
 if not github_token:
-    raise ValueError("❌ Error: GITHUB_TOKEN is missing! Check your .env file.")
+    raise ValueError("❌ Error: GITHUB_TOKEN is missing! (Check .env file)")
 
-# Initialize GitHub API
-github = Github(github_token)
+# ✅ Fix deprecated GitHub authentication method
+github = Github(auth=Auth.Token(github_token))
 
-# Example: Print authenticated user
+# ✅ Print authenticated user
 user = github.get_user()
 print(f"✅ Authenticated as: {user.login}")
