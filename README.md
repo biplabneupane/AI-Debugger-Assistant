@@ -63,6 +63,20 @@ If you encounter `ModuleNotFoundError: No module named 'anthropic'`, install the
 pip install anthropic
 ```
 
+## ⚠️ Important Note About GitHub Actions
+
+This project uses **Anthropic's Claude API**, which requires credits. 
+
+- **GitHub Actions may fail** due to insufficient API credits.  
+- To **run locally**, add a valid `ANTHROPIC_API_KEY` to your environment variables.  
+- In **GitHub Actions**, the API call is **skipped** to prevent failures.  
+
+### How to Run Locally:
+```sh
+export ANTHROPIC_API_KEY="your_api_key_here"
+python src/ai_debugger.py
+
+
 ## Contributing
 Pull requests are welcome. Please open an issue for discussion before submitting major changes.
 

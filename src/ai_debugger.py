@@ -1,35 +1,32 @@
 import os
-from dotenv import load_dotenv
-from anthropic import Anthropic
-
-# ✅ Load .env variables
-load_dotenv()
+import anthropic
 
 class AIDebugger:
     def __init__(self):
-        api_key = os.getenv("ANTHROPIC_API_KEY")
-        if not api_key:
-            raise ValueError("❌ Error: ANTHROPIC_API_KEY is missing! (Check .env file)")
-
-        # ✅ Correctly initialize the Anthropic client (NO proxies, transport, or limits)
-        self.client = Anthropic(api_key=api_key)  # 🔥 This is the correct way
+        self.api_key = os.getenv("ANTHROPIC_API_KEY")
+        self.client = anthropic.Anthropic(api_key=self.api_key)
 
     def get_fix(self, error):
-        prompt = f"You are an AI that fixes Python errors. Given the following error message, suggest a fix:\nError: {error}"
+        # Skip API call if running in GitHub Actions
+        if os.getenv("GITHUB_ACTIONS"):
+            print("⚠️ Running in GitHub Actions – Skipping API Call.")
+            return "Mocked fix: This is a placeholder fix since API calls are disabled in CI/CD."
 
-        response = self.client.messages.create(
-            model="claude-3-opus-20240229",
-            max_tokens=512,
-            temperature=0.5,
-            messages=[{"role": "user", "content": prompt}]
-        )
-
-        return response.content[0].text if response.content else "❌ No fix provided."
+        try:
+            response = self.client.messages.create(
+                model="claude-2",
+                max_tokens=200,
+                messages=[{"role": "user", "content": f"Fix this error: {error}"}]
+            )
+            return response.content
+        except anthropic.BadRequestError as e:
+            print(f"❌ API Error: {e}")
+            return "Error in API call. Check Anthropic credits or usage limits."
 
     def debug_code(self):
-        error = "ModuleNotFoundError: No module named 'numpy'"
+        error = "Example error for testing"
         fix = self.get_fix(error)
-        print("Suggested fix:", fix)
+        print(f"Suggested fix: {fix}")
 
 if __name__ == "__main__":
     debugger = AIDebugger()
