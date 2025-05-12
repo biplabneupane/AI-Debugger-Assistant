@@ -13,5 +13,5 @@ For installation, setup, and usage, see the full documentation:
 
 1️⃣ **Clone the repository**  
 ```sh
-git clone https://github.com/biplab4/AI-Debugger-Assistant.git
+git clone https://github.com/biplabneupane/AI-Debugger-Assistant.git
 cd AI-Debugger-Assistant
